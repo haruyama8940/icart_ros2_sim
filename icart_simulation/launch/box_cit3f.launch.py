@@ -29,7 +29,8 @@ from launch.substitutions import LaunchConfiguration
 
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='True')
-    world_file_name = 'empty.world'
+    # world_file_name = 'empty_worlds'
+    world_file_name = 'Tsudanuma_2-3.world'
     world = os.path.join(get_package_share_directory('icart_simulation'),
                          'world', world_file_name)
     launch_file_dir = os.path.join(get_package_share_directory('icart_simulation'), 'launch')
@@ -53,8 +54,12 @@ def generate_launch_description():
             cmd=['ros2', 'param', 'set', '/gazebo', 'use_sim_time', use_sim_time],
             output='screen'),
 
-        # IncludeLaunchDescription(
-        #     PythonLaunchDescriptionSource([launch_file_dir, '/robot_state_publisher.launch.py']),
-        #     launch_arguments={'use_sim_time': use_sim_time}.items(),
-        # ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([launch_file_dir, '/robot_state_publisher.launch.py']),
+            # launch_arguments={'use_sim_time': use_sim_time}.items(),
+        ),
+
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([launch_file_dir,'/spawn_urdf.launch.py'])
+        )
     ])

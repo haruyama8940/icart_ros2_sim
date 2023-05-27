@@ -26,10 +26,8 @@ def generate_launch_description():
 
     ld = LaunchDescription()
 
-    # ランチ引数の宣言
     # ld.add_action(DeclareLaunchArgument(''))
 
-    # ノードをランチに追加
     ld.add_action(spawn_entity_node)
 
     return ld
